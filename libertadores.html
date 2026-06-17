@@ -68,7 +68,7 @@ header img{height:52px;filter:drop-shadow(0 2px 12px rgba(201,168,76,.5));flex-s
 .match-row{display:flex;align-items:center;padding:5px 10px;border-bottom:1px solid var(--border);gap:6px;}
 .match-row:last-child{border-bottom:none;}
 
-.mteam{flex:1;font-size:0.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.mteam{flex:1;min-width:0;font-size:0.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .mteam.home{text-align:right;}
 .mteam.away{text-align:left;}
 .sbox{display:flex;align-items:center;gap:4px;flex-shrink:0;}
@@ -171,6 +171,9 @@ html{-webkit-text-size-adjust:100%;}
 @media(max-width:600px){
   .section{padding:14px 12px;}
   .gview.active{gap:14px;}
+  /* pestañas de grupos: 4 por fila (2 filas de 4) */
+  .gnav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+  .gtab{padding:9px 2px;text-align:center;font-size:0.72rem;letter-spacing:0;}
   /* tabla de posiciones/goleadores compacta */
   .std-table{font-size:0.76rem;}
   .std-table thead th{font-size:0.6rem;padding:6px 4px;}
