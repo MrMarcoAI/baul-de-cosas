@@ -179,8 +179,9 @@ html{-webkit-text-size-adjust:100%;}
   .std-table thead th{font-size:0.6rem;padding:6px 4px;}
   .std-table tbody td{padding:6px 4px;}
   .std-table thead th:first-child,.std-table tbody td:first-child{padding-left:9px;}
-  /* iOS Safari: font-size >=16px evita el zoom automatico al enfocar */
-  input,select,.sinput,.binput,.pinput,.goals-edit,.r16-sel,.team-sel{font-size:16px;}
+  /* iOS Safari: font-size >=16px evita el zoom al enfocar.
+     !important para ganar a input[type=number]/[type=text] (mayor especificidad) */
+  input,select,textarea{font-size:16px !important;}
   /* alto util de inputs en movil */
   .binput{height:32px;}
   .pinput{width:30px;height:26px;}
