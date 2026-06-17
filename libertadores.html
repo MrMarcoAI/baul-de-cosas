@@ -164,6 +164,25 @@ input[type="text"]::placeholder,input[type="number"]::placeholder{color:var(--te
 /* UTILS */
 .divider{height:1px;background:var(--border);margin:18px 0;}
 .info-note{font-size:0.75rem;color:var(--text3);font-style:italic;margin-bottom:12px;}
+html{-webkit-text-size-adjust:100%;}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+/* MOBILE */
+@media(max-width:600px){
+  .section{padding:14px 12px;}
+  .gview.active{gap:14px;}
+  /* tabla de posiciones/goleadores compacta */
+  .std-table{font-size:0.76rem;}
+  .std-table thead th{font-size:0.6rem;padding:6px 4px;}
+  .std-table tbody td{padding:6px 4px;}
+  .std-table thead th:first-child,.std-table tbody td:first-child{padding-left:9px;}
+  /* iOS Safari: font-size >=16px evita el zoom automatico al enfocar */
+  input,select,.sinput,.binput,.pinput,.goals-edit,.r16-sel,.team-sel{font-size:16px;}
+  /* alto util de inputs en movil */
+  .binput{height:32px;}
+  .pinput{width:30px;height:26px;}
+  .goals-edit{width:46px;height:30px;}
+}
 </style>
 </head>
 <body>
@@ -296,9 +315,12 @@ function loadData() {
     const s = localStorage.getItem('lib2025');
     if (s) {
       const d = JSON.parse(s);
-      // ensure structure is complete
-      if (!d.knockout.final.p1 !== undefined) d.knockout.final.p1 = '';
-      if (!d.knockout.final.p2 !== undefined) d.knockout.final.p2 = '';
+      // ensure structure is complete (merge with fresh defaults, sin borrar datos)
+      const base = freshData();
+      if (!d.groups) d.groups = base.groups;
+      if (!d.knockout) d.knockout = base.knockout;
+      d.knockout.final = Object.assign({}, base.knockout.final, d.knockout.final);
+      if (!Array.isArray(d.scorers)) d.scorers = [];
       return d;
     }
   } catch(e){}
@@ -422,7 +444,7 @@ function renderStandings(gid) {
   const std = document.getElementById('std-' + gid);
   const stats = computeStandings(gid);
   let html = `<div class="card-head"><h3>Posiciones — Grupo ${gid}</h3></div>
-    <table class="std-table">
+    <div class="tbl-wrap"><table class="std-table">
     <thead><tr>
       <th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th>
       <th>GF</th><th>GC</th><th>DG</th><th>PTS</th>
@@ -437,7 +459,7 @@ function renderStandings(gid) {
       <td class="pts-cell">${s.pts}</td>
     </tr>`;
   });
-  html += '</tbody></table>';
+  html += '</tbody></table></div>';
   std.innerHTML = html;
 }
 
@@ -500,7 +522,7 @@ function renderKnockout() {
   // R16 setup
   html += `<div class="r16-setup">
     <h3>Armar Octavos de Final</h3>
-    <p class="info-note">Seleccioná los equipos para cada cruce. Los ganadores avanzan automáticamente.</p>
+    <p class="info-note">Selecciona los equipos para cada cruce. Los ganadores avanzan automáticamente.</p>
     <div class="r16-grid">`;
   for (let i = 0; i < 8; i++) {
     const tie = data.knockout.r16[i];
@@ -729,7 +751,7 @@ function renderScorers() {
     .sort((a, b) => b.goals - a.goals || a.name.localeCompare(b.name));
 
   const medals = ['medal-1','medal-2','medal-3'];
-  let html = `<table class="std-table">
+  let html = `<div class="tbl-wrap"><table class="std-table">
     <thead><tr><th>#</th><th style="text-align:left">Jugador</th><th style="text-align:left">Equipo</th><th>Goles</th><th></th></tr></thead>
     <tbody>`;
 
@@ -752,7 +774,7 @@ function renderScorers() {
       </tr>`;
     });
   }
-  html += '</tbody></table>';
+  html += '</tbody></table></div>';
   document.getElementById('scorers-body').innerHTML = html;
 }
 
