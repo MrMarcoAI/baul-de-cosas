@@ -92,8 +92,8 @@ header img{height:52px;filter:drop-shadow(0 2px 12px rgba(201,168,76,.5));flex-s
 /* R16 SETUP */
 .r16-setup{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:22px;}
 .r16-setup h3{font-size:0.75rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.r16-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-@media(max-width:700px){.r16-grid{grid-template-columns:1fr;}}
+.r16-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;}
+@media(max-width:700px){.r16-grid{grid-template-columns:minmax(0,1fr);}}
 .r16-row{display:flex;align-items:center;gap:8px;background:var(--bg3);padding:8px 12px;border-radius:5px;border:1px solid var(--border);}
 .r16-num{font-size:0.7rem;font-weight:700;color:var(--gold);width:20px;flex-shrink:0;}
 .r16-sel{flex:1;min-width:0;background:var(--bg4);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:5px 8px;font-size:0.78rem;outline:none;cursor:pointer;}
