@@ -1,0 +1,11 @@
+{
+  "name": "Pupi's Cruci",
+  "short_name": "Pupi's Cruci",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

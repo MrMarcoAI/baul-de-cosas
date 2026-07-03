@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+<title>Pupi's Cruci</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Pupi's Cruci</h1>
+  <div id="fecha"></div>
+  <button id="theme-btn" aria-label="Cambiar tema">◐</button>
+</header>
+
+<nav id="levels" role="tablist">
+  <button data-level="facil" role="tab">Fácil</button>
+  <button data-level="medio" role="tab">Medio</button>
+  <button data-level="dificil" role="tab">Difícil</button>
+</nav>
+
+<div id="clue-bar">
+  <button id="prev-word" aria-label="Palabra anterior">‹</button>
+  <div id="clue-text"></div>
+  <button id="next-word" aria-label="Palabra siguiente">›</button>
+</div>
+
+<div id="grid-wrap">
+  <div id="grid"></div>
+  <input id="kbd" type="text" autocomplete="off" autocorrect="off"
+         autocapitalize="characters" spellcheck="false" enterkeyhint="next"
+         aria-label="Entrada de letras">
+</div>
+
+<div id="banner" hidden>✓ Crucigrama completado</div>
+
+<section class="clues">
+  <h2>Horizontales</h2>
+  <ul id="across-list"></ul>
+  <h2>Verticales</h2>
+  <ul id="down-list"></ul>
+</section>
+
+<footer id="temas"></footer>
+
+<script src="puzzles.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
