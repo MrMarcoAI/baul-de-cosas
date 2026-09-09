@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fondos */
+  --color-night-950: #03041a;
+  --color-night-900: #070a2b;
+  --color-night-800: #0e1244;
+  --color-night-700: #171a5c;
+  --color-uefa: #0d2050;
+  --color-plum-900: #1a0a3f;
+  --color-plum-800: #2a1060;
+
+  /* Acentos neón */
+  --color-neon-cyan: #00e5ff;
+  --color-neon-magenta: #ff2d95;
+  --color-neon-lime: #6ef7a5;
+  --color-neon-amber: #ffb340;
+
+  /* Tipografías */
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-night-950);
+  background-image:
+    radial-gradient(120% 70% at 50% -10%, #2a1060 0%, transparent 60%),
+    radial-gradient(80% 50% at 100% 0%, rgba(0, 229, 255, 0.14) 0%, transparent 55%),
+    radial-gradient(70% 45% at 0% 10%, rgba(255, 45, 149, 0.12) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: #e8ecff;
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+}
+
+/* iOS no hace zoom si el input mide 16px o más */
+input,
+select,
+button {
+  font-size: 16px;
+}
+
+@utility safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--tw-safe-extra, 0px));
+}
+
+@utility glass {
+  background: linear-gradient(180deg, rgba(23, 26, 92, 0.55) 0%, rgba(7, 10, 43, 0.75) 100%);
+  border: 1px solid rgba(120, 140, 255, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+@utility glow-cyan {
+  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.35), 0 0 24px -6px rgba(0, 229, 255, 0.55);
+}
+
+@utility glow-magenta {
+  box-shadow: 0 0 0 1px rgba(255, 45, 149, 0.35), 0 0 24px -6px rgba(255, 45, 149, 0.55);
+}
+
+@utility num {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+  border-radius: 999px;
+}
