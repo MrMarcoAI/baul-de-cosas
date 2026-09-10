@@ -28,7 +28,7 @@ function Score({
         const n = Math.max(0, Math.min(99, Math.floor(Number(raw))));
         onChange(Number.isNaN(n) ? null : n);
       }}
-      className="h-10 w-10 shrink-0 rounded-lg border border-white/15 bg-night-950/70 text-center text-base font-bold text-white num [appearance:textfield] focus:border-neon-cyan/70 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
+      className="h-11 w-11 shrink-0 rounded-lg bg-navy-950 text-center font-display text-lg text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
     />
   );
 }
@@ -65,21 +65,21 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
       <button
         aria-label="Cerrar"
         onClick={onClose}
-        className="absolute inset-0 bg-night-950/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-navy-950/85 backdrop-blur-sm"
       />
-      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-3xl border-t border-white/15 bg-night-900 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
-        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-white/20" />
+      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-2xl bg-navy-900 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
+        <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/25" />
 
-        <p className="text-[10px] tracking-[0.16em] text-white/40 uppercase">
+        <p className="text-[10px] font-semibold tracking-[0.16em] text-white/45 uppercase">
           {tie.def.label} · {twoLegs ? "Ida y vuelta" : "Partido único"}
         </p>
-        <h2 className="mt-1 font-display text-lg font-bold">
+        <h2 className="mt-1 headline text-[26px]">
           {teamName(aId)} <span className="text-white/35">vs</span> {teamName(bId)}
         </h2>
 
         <div className="mt-4 space-y-3">
-          <div className="rounded-xl border border-white/10 p-3">
-            <p className="mb-2 text-[10px] tracking-[0.14em] text-white/40 uppercase">
+          <div className="card p-3">
+            <p className="mb-2.5 text-[10px] font-semibold tracking-[0.14em] text-white/45 uppercase">
               {twoLegs ? `Ida · en casa de ${teamName(bId)}` : "Partido único"}
             </p>
             {twoLegs ? (
@@ -116,8 +116,8 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
           </div>
 
           {twoLegs && (
-            <div className="rounded-xl border border-white/10 p-3">
-              <p className="mb-2 text-[10px] tracking-[0.14em] text-white/40 uppercase">
+            <div className="card p-3">
+              <p className="mb-2.5 text-[10px] font-semibold tracking-[0.14em] text-white/45 uppercase">
                 Vuelta · en casa de {teamName(aId)}
               </p>
               <div className="flex items-center gap-2">
@@ -139,14 +139,14 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
         </div>
 
         {tie.aggA !== null && (
-          <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center">
-            <p className="text-[10px] tracking-[0.14em] text-white/40 uppercase">Global</p>
-            <p className="mt-1 text-sm num">
-              <span className={tie.winner === aId ? "font-bold text-neon-cyan" : "text-white/70"}>
+          <div className="mt-4 card px-3 py-3 text-center">
+            <p className="text-[10px] font-semibold tracking-[0.14em] text-white/45 uppercase">Global</p>
+            <p className="mt-1.5 font-display text-[20px] num">
+              <span className={tie.winner === aId ? "text-cyan" : "text-white/50"}>
                 {teamName(aId)} {tie.aggA}
               </span>
               <span className="mx-2 text-white/30">–</span>
-              <span className={tie.winner === bId ? "font-bold text-neon-cyan" : "text-white/70"}>
+              <span className={tie.winner === bId ? "text-cyan" : "text-white/50"}>
                 {tie.aggB} {teamName(bId)}
               </span>
             </p>
@@ -155,7 +155,7 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
 
         {tied && (
           <div className="mt-3">
-            <p className="mb-2 text-center text-[11px] text-white/50">
+            <p className="mb-2 text-center text-[11px] text-white/55">
               Empate en el global. ¿Quién pasa por penales?
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -166,10 +166,10 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
                   <button
                     key={side}
                     onClick={() => set({ pens: on ? null : side })}
-                    className={`truncate rounded-xl border px-3 py-2.5 text-sm transition-colors ${
+                    className={`truncate rounded-lg px-3 py-2.5 text-sm transition-colors ${
                       on
-                        ? "border-neon-cyan/60 bg-neon-cyan/10 font-semibold text-neon-cyan"
-                        : "border-white/12 text-white/70"
+                        ? "bg-cyan text-navy-900 font-bold"
+                        : "bg-navy-800 text-white/75"
                     }`}
                   >
                     {teamName(id)}
@@ -183,13 +183,13 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
         <div className="mt-4 grid grid-cols-[auto_1fr] gap-2">
           <button
             onClick={() => dispatch({ type: "clearKo", id: tie.def.id })}
-            className="rounded-xl border border-neon-magenta/30 px-4 py-3 text-xs text-neon-magenta/80"
+            className="rounded-lg bg-navy-800 px-4 py-3 text-xs font-semibold text-white/60"
           >
             Limpiar
           </button>
           <button
             onClick={onClose}
-            className="rounded-xl bg-neon-cyan px-4 py-3 font-display font-bold tracking-wide text-night-950 uppercase glow-cyan"
+            className="rounded-lg bg-pink px-4 py-3 font-display text-[17px] tracking-wide text-white uppercase"
           >
             Listo
           </button>

@@ -73,7 +73,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <TabContext.Provider value={{ tab, setTab }}>
       <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col">
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-uefa px-4 pt-[calc(env(safe-area-inset-top,0px)+0.6rem)] pb-2.5">
+        <header className="sticky top-0 z-30 bg-navy-900 px-4 pt-[calc(env(safe-area-inset-top,0px)+0.75rem)] pb-3">
           <div className="flex items-center gap-2.5">
             <Image
               src="/ucl-ball.png"
@@ -81,17 +81,15 @@ export default function AppShell({ children }: { children: ReactNode }) {
               width={108}
               height={98}
               priority
-              className="h-9 w-auto"
+              className="h-8 w-auto"
             />
-            <h1 className="font-display text-lg leading-none font-extrabold tracking-tight">
-              Champions League
-            </h1>
+            <h1 className="headline text-[26px]">Champions League</h1>
           </div>
         </header>
 
-        <main className="flex-1 px-3 pt-4 pb-28">{children}</main>
+        <main className="flex-1 px-4 pt-5 pb-28">{children}</main>
 
-        <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-night-950/85 backdrop-blur-xl safe-bottom">
+        <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-white/12 bg-navy-950/95 backdrop-blur-xl safe-bottom">
           <div className="mx-auto grid max-w-3xl grid-cols-4">
             {TABS.map((t) => {
               const active = t.id === tab;
@@ -100,14 +98,16 @@ export default function AppShell({ children }: { children: ReactNode }) {
                   key={t.id}
                   onClick={() => setTab(t.id)}
                   className={`flex select-none flex-col items-center gap-1 py-2.5 transition-colors ${
-                    active ? "text-neon-cyan" : "text-white/55"
+                    active ? "text-cyan" : "text-white/50"
                   }`}
                 >
                   <TabIcon id={t.id} />
-                  <span className="text-[10px] font-medium tracking-wide">{t.label}</span>
+                  <span className="text-[10px] font-semibold tracking-[0.06em] uppercase">
+                    {t.label}
+                  </span>
                   <span
-                    className={`h-0.5 w-6 rounded-full transition-all ${
-                      active ? "bg-neon-cyan shadow-[0_0_10px_var(--color-neon-cyan)]" : "bg-transparent"
+                    className={`h-[3px] w-7 rounded-full transition-all ${
+                      active ? "bg-cyan" : "bg-transparent"
                     }`}
                   />
                 </button>

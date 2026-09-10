@@ -31,7 +31,7 @@ function GoalInput({
         const n = Math.max(0, Math.min(99, Math.floor(Number(raw))));
         onChange(Number.isNaN(n) ? null : n);
       }}
-      className="h-8 w-8 rounded-lg border border-white/12 bg-night-950/70 text-center text-sm font-bold text-white num [appearance:textfield] focus:border-neon-cyan/70 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
+      className="h-8 w-8 rounded-md bg-navy-950 text-center font-display text-[15px] text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
     />
   );
 }
@@ -53,39 +53,25 @@ function MatchRow({ f, showMatchday }: { f: Fixture; showMatchday?: boolean }) {
     });
 
   return (
-    <div
-      className={`flex items-center gap-1.5 border-t border-white/[0.06] px-2.5 py-1.5 ${
-        played ? "" : "bg-white/[0.015]"
-      }`}
-    >
+    <div className="flex items-center gap-1.5 rule px-3 py-2">
       {showMatchday && (
-        <span className="w-6 shrink-0 text-[10px] text-white/30">J{f.matchday}</span>
+        <span className="w-6 shrink-0 text-[10px] font-semibold text-white/35">J{f.matchday}</span>
       )}
-      <span className="flex min-w-0 flex-1 items-baseline justify-end gap-1">
-        <span className="text-[9px] text-white/25">B{home.pot}</span>
-        <span
-          className={`truncate text-[13px] ${homeWin ? "font-semibold text-white" : "text-white/75"}`}
-        >
-          {home.name}
-        </span>
+      <span
+        className={`min-w-0 flex-1 truncate text-right text-[13px] ${
+          homeWin ? "font-bold" : played ? "font-medium text-white/60" : "font-medium"
+        }`}
+      >
+        {home.name}
       </span>
-      <GoalInput
-        label={`Goles de ${home.name}`}
-        value={f.homeGoals}
-        onChange={(v) => set("home", v)}
-      />
-      <GoalInput
-        label={`Goles de ${away.name}`}
-        value={f.awayGoals}
-        onChange={(v) => set("away", v)}
-      />
-      <span className="flex min-w-0 flex-1 items-baseline gap-1">
-        <span
-          className={`truncate text-[13px] ${awayWin ? "font-semibold text-white" : "text-white/75"}`}
-        >
-          {away.name}
-        </span>
-        <span className="text-[9px] text-white/25">B{away.pot}</span>
+      <GoalInput label={`Goles de ${home.name}`} value={f.homeGoals} onChange={(v) => set("home", v)} />
+      <GoalInput label={`Goles de ${away.name}`} value={f.awayGoals} onChange={(v) => set("away", v)} />
+      <span
+        className={`min-w-0 flex-1 truncate text-[13px] ${
+          awayWin ? "font-bold" : played ? "font-medium text-white/60" : "font-medium"
+        }`}
+      >
+        {away.name}
       </span>
     </div>
   );
@@ -107,48 +93,46 @@ export default function FixturesPanel() {
   const loaded = shown.filter((f) => f.homeGoals !== null && f.awayGoals !== null).length;
 
   const redraw = () => {
-    if (
-      confirm(
-        "Se hace un sorteo nuevo y se borran todos los resultados y goleadores. ¿Seguro?"
-      )
-    )
+    if (confirm("Se hace un sorteo nuevo y se borran todos los resultados y goleadores. ¿Seguro?"))
       dispatch({ type: "redraw" });
   };
 
   return (
-    <section className="space-y-2.5">
-      <div>
-        <div className="grid grid-cols-8 gap-1">
-          {MATCHDAYS.map((md) => {
-            const active = !teamId && md === matchday;
-            const done = state.fixtures.filter(
-              (f) => f.matchday === md && f.homeGoals !== null && f.awayGoals !== null
-            ).length;
-            return (
-              <button
-                key={md}
-                onClick={() => {
-                  setTeamId("");
-                  setMatchday(md);
-                }}
-                className={`rounded-lg border py-1.5 text-center transition-colors ${
-                  active
-                    ? "border-neon-cyan/60 bg-neon-cyan/10 text-neon-cyan"
-                    : "border-white/10 text-white/60"
+    <section className="space-y-3">
+      <div className="grid grid-cols-8 gap-1.5">
+        {MATCHDAYS.map((md) => {
+          const active = !teamId && md === matchday;
+          const done = state.fixtures.filter(
+            (f) => f.matchday === md && f.homeGoals !== null && f.awayGoals !== null
+          ).length;
+          return (
+            <button
+              key={md}
+              onClick={() => {
+                setTeamId("");
+                setMatchday(md);
+              }}
+              className={`rounded-full py-1.5 text-center transition-colors ${
+                active ? "bg-cyan text-navy-900" : "bg-navy-800 text-white/70"
+              }`}
+            >
+              <span className="block font-display text-[13px] leading-tight">J{md}</span>
+              <span
+                className={`block text-[8px] leading-tight num ${
+                  active ? "text-navy-900/70" : "text-white/45"
                 }`}
               >
-                <span className="block font-display text-[13px] leading-tight font-bold">J{md}</span>
-                <span className="block text-[8px] leading-tight opacity-70 num">{done}/24</span>
-              </button>
-            );
-          })}
-        </div>
+                {done}/24
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <select
         value={teamId}
         onChange={(e) => setTeamId(e.target.value)}
-        className="w-full appearance-none rounded-xl border border-white/12 bg-night-900/80 px-3 py-2 text-[13px] text-white focus:border-neon-cyan/60 focus:outline-none"
+        className="w-full appearance-none rounded-lg bg-navy-800 px-3 py-2.5 text-[13px] font-medium text-white focus:ring-2 focus:ring-cyan focus:outline-none"
       >
         <option value="">Ver por jornada · todos los equipos</option>
         {[1, 2, 3, 4].map((p) => (
@@ -162,23 +146,25 @@ export default function FixturesPanel() {
         ))}
       </select>
 
-      <div className="overflow-hidden rounded-2xl glass">
-        <div className="flex items-center justify-between px-3 py-2">
-          <h2 className="font-display text-sm font-bold">
+      <div>
+        <div className="flex items-end justify-between">
+          <h2 className="headline text-[26px]">
             {teamId ? TEAMS_BY_ID[teamId].name : `Jornada ${matchday}`}
           </h2>
-          <span className="text-[11px] text-white/40 num">
-            {loaded}/{shown.length} cargados
+          <span className="pb-1 text-[11px] font-semibold text-pink num">
+            {loaded}/{shown.length}
           </span>
         </div>
-        {shown.map((f) => (
-          <MatchRow key={f.id} f={f} showMatchday={!!teamId} />
-        ))}
+        <div className="mt-2 overflow-hidden card">
+          {shown.map((f) => (
+            <MatchRow key={f.id} f={f} showMatchday={!!teamId} />
+          ))}
+        </div>
       </div>
 
       <button
         onClick={redraw}
-        className="w-full rounded-xl border border-neon-magenta/25 px-4 py-2 text-[11px] text-neon-magenta/70 active:scale-[0.99]"
+        className="w-full rounded-lg py-2 text-[11px] font-semibold tracking-wide text-white/40 uppercase active:text-pink"
       >
         Rehacer sorteo
       </button>

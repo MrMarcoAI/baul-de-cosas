@@ -5,25 +5,10 @@ import { useStore } from "@/lib/store";
 import { buildStandings, qualification, QUAL_LABEL } from "@/lib/standings";
 import type { Qualification } from "@/lib/types";
 
-const STYLES: Record<Qualification, { bar: string; text: string; row: string; chip: string }> = {
-  r16: {
-    bar: "bg-neon-cyan shadow-[0_0_12px_var(--color-neon-cyan)]",
-    text: "text-neon-cyan",
-    row: "bg-neon-cyan/[0.06]",
-    chip: "border-neon-cyan/40 text-neon-cyan bg-neon-cyan/10",
-  },
-  playoff: {
-    bar: "bg-neon-amber shadow-[0_0_12px_var(--color-neon-amber)]",
-    text: "text-neon-amber",
-    row: "bg-neon-amber/[0.04]",
-    chip: "border-neon-amber/40 text-neon-amber bg-neon-amber/10",
-  },
-  out: {
-    bar: "bg-neon-magenta/50",
-    text: "text-white/40",
-    row: "opacity-55",
-    chip: "border-neon-magenta/30 text-neon-magenta/80 bg-neon-magenta/5",
-  },
+const TONE: Record<Qualification, { bar: string; rank: string; dot: string }> = {
+  r16: { bar: "bg-cyan", rank: "text-cyan", dot: "bg-cyan" },
+  playoff: { bar: "bg-pink", rank: "text-pink-soft", dot: "bg-pink" },
+  out: { bar: "bg-white/15", rank: "text-white/35", dot: "bg-white/25" },
 };
 
 export default function StandingsTable() {
@@ -31,68 +16,68 @@ export default function StandingsTable() {
   const rows = useMemo(() => buildStandings(state.fixtures), [state.fixtures]);
 
   return (
-    <section className="space-y-3">
-      <div className="flex flex-wrap gap-2">
-        {(["r16", "playoff", "out"] as Qualification[]).map((q) => (
-          <span
-            key={q}
-            className={`rounded-full border px-2.5 py-1 text-[10px] font-medium tracking-wide uppercase ${STYLES[q].chip}`}
-          >
-            {QUAL_LABEL[q]}
-          </span>
-        ))}
+    <section className="space-y-4">
+      <div>
+        <h2 className="headline text-[28px]">Tabla general</h2>
+        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
+          {(["r16", "playoff", "out"] as Qualification[]).map((q) => (
+            <span key={q} className="flex items-center gap-1.5 text-[11px] text-white/60">
+              <span className={`h-2 w-2 rounded-full ${TONE[q].dot}`} />
+              {QUAL_LABEL[q]}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl glass">
-        <table className="w-full border-collapse text-sm num">
+      <div className="overflow-hidden card">
+        <table className="w-full border-collapse">
           <thead>
-            <tr className="text-[10px] tracking-[0.12em] text-white/45 uppercase">
-              <th className="w-9 py-2.5 pr-0 pl-2 text-left font-medium">#</th>
-              <th className="py-2.5 pl-0 text-left font-medium">Equipo</th>
-              <th className="w-7 py-2.5 text-center font-medium">PJ</th>
-              <th className="w-7 py-2.5 text-center font-medium">PG</th>
-              <th className="hidden w-7 py-2.5 text-center font-medium sm:table-cell">E</th>
-              <th className="hidden w-7 py-2.5 text-center font-medium sm:table-cell">P</th>
-              <th className="w-8 py-2.5 text-center font-medium">GF</th>
-              <th className="hidden w-8 py-2.5 text-center font-medium sm:table-cell">GC</th>
-              <th className="w-8 py-2.5 text-center font-medium">DG</th>
-              <th className="w-9 py-2.5 pr-2.5 text-center font-medium">PTS</th>
+            <tr className="text-[10px] font-semibold tracking-[0.1em] text-white/45 uppercase">
+              <th className="w-8 py-3 pl-3 text-left">#</th>
+              <th className="py-3 pl-1 text-left">Equipo</th>
+              <th className="w-7 py-3 text-center">PJ</th>
+              <th className="w-7 py-3 text-center">PG</th>
+              <th className="hidden w-7 py-3 text-center sm:table-cell">E</th>
+              <th className="hidden w-7 py-3 text-center sm:table-cell">P</th>
+              <th className="w-8 py-3 text-center">GF</th>
+              <th className="hidden w-8 py-3 text-center sm:table-cell">GC</th>
+              <th className="w-8 py-3 text-center">DG</th>
+              <th className="w-10 py-3 pr-3 text-center">Pts</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r, i) => {
               const rank = i + 1;
-              const q = qualification(rank);
-              const s = STYLES[q];
+              const t = TONE[qualification(rank)];
               const cut = rank === 8 || rank === 24;
               return (
                 <tr
                   key={r.team.id}
-                  className={`border-t border-white/[0.06] ${s.row} ${
-                    cut ? "border-b-2 border-b-white/20" : ""
-                  }`}
+                  className={`rule ${cut ? "border-b-2 border-b-white/35" : ""}`}
                 >
-                  <td className="w-9 py-2 pr-0 pl-2">
+                  <td className="py-2.5 pl-3">
                     <div className="flex items-center gap-1.5">
-                      <span className={`h-6 w-[3px] rounded-full ${s.bar}`} />
-                      <span className={`w-4 text-right text-xs ${s.text}`}>{rank}</span>
+                      <span className={`h-5 w-[3px] rounded-full ${t.bar}`} />
+                      <span className={`w-4 text-right text-xs font-semibold num ${t.rank}`}>
+                        {rank}
+                      </span>
                     </div>
                   </td>
-                  <td className="max-w-0 py-2 pl-1.5">
-                    <span className="block truncate text-[13px] font-medium text-white/90">
-                      {r.team.name}
-                    </span>
+                  <td className="max-w-0 py-2.5 pl-1.5">
+                    <span className="block truncate text-[13px] font-semibold">{r.team.name}</span>
                   </td>
-                  <td className="py-2 text-center text-xs text-white/70">{r.played}</td>
-                  <td className="py-2 text-center text-xs text-white/70">{r.won}</td>
-                  <td className="hidden py-2 text-center text-xs text-white/70 sm:table-cell">{r.drawn}</td>
-                  <td className="hidden py-2 text-center text-xs text-white/70 sm:table-cell">{r.lost}</td>
-                  <td className="py-2 text-center text-xs text-white/70">{r.gf}</td>
-                  <td className="hidden py-2 text-center text-xs text-white/70 sm:table-cell">{r.ga}</td>
-                  <td className="py-2 text-center text-xs text-white/70">
+                  <td className="py-2.5 text-center text-xs text-white/65 num">{r.played}</td>
+                  <td className="py-2.5 text-center text-xs text-white/65 num">{r.won}</td>
+                  <td className="hidden py-2.5 text-center text-xs text-white/65 num sm:table-cell">{r.drawn}</td>
+                  <td className="hidden py-2.5 text-center text-xs text-white/65 num sm:table-cell">{r.lost}</td>
+                  <td className="py-2.5 text-center text-xs text-white/65 num">{r.gf}</td>
+                  <td className="hidden py-2.5 text-center text-xs text-white/65 num sm:table-cell">{r.ga}</td>
+                  <td className="py-2.5 text-center text-xs text-white/65 num">
                     {r.gd > 0 ? `+${r.gd}` : r.gd}
                   </td>
-                  <td className="py-2 pr-2.5 text-center text-sm font-semibold text-white">{r.points}</td>
+                  <td className="py-2.5 pr-3 text-center">
+                    <span className="font-display text-[19px] leading-none num">{r.points}</span>
+                  </td>
                 </tr>
               );
             })}

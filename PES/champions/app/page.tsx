@@ -13,9 +13,9 @@ export default function Home() {
 
   if (!hydrated)
     return (
-      <div className="rounded-2xl px-6 py-16 text-center glass">
-        <p className="font-display text-lg font-bold text-neon-cyan">Sorteando…</p>
-        <p className="mt-2 text-sm text-white/45">Armando las 8 jornadas.</p>
+      <div className="card px-6 py-16 text-center">
+        <p className="headline text-[26px] text-pink">Sorteando</p>
+        <p className="mt-2 text-sm text-white/50">Armando las 8 jornadas.</p>
       </div>
     );
 

@@ -12,12 +12,10 @@ export default function ScorersPanel() {
   const [error, setError] = useState("");
 
   const ranked = useMemo(
-    () =>
-      [...state.scorers].sort(
-        (a, b) => b.goals - a.goals || a.name.localeCompare(b.name)
-      ),
+    () => [...state.scorers].sort((a, b) => b.goals - a.goals || a.name.localeCompare(b.name)),
     [state.scorers]
   );
+  const max = ranked[0]?.goals ?? 1;
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,20 +30,20 @@ export default function ScorersPanel() {
   };
 
   return (
-    <section className="space-y-4">
-      <form onSubmit={submit} className="space-y-3 rounded-2xl p-4 glass">
-        <h2 className="font-display text-lg font-bold">Sumar goles</h2>
+    <section className="space-y-5">
+      <form onSubmit={submit} className="space-y-2.5 card p-4">
+        <h2 className="headline text-[22px]">Sumar goles</h2>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Jugador"
-          className="w-full rounded-xl border border-white/12 bg-night-900/80 px-3 py-2.5 text-white placeholder:text-white/30 focus:border-neon-cyan/60 focus:outline-none"
+          className="w-full rounded-lg bg-navy-950 px-3 py-2.5 text-white placeholder:text-white/35 focus:ring-2 focus:ring-cyan focus:outline-none"
         />
-        <div className="grid grid-cols-[1fr_4.5rem] gap-3">
+        <div className="grid grid-cols-[1fr_4.5rem] gap-2.5">
           <select
             value={teamId}
             onChange={(e) => setTeamId(e.target.value)}
-            className="w-full appearance-none rounded-xl border border-white/12 bg-night-900/80 px-3 py-2.5 text-white focus:border-neon-cyan/60 focus:outline-none"
+            className="w-full appearance-none rounded-lg bg-navy-950 px-3 py-2.5 text-white focus:ring-2 focus:ring-cyan focus:outline-none"
           >
             <option value="">Equipo…</option>
             {[1, 2, 3, 4].map((p) => (
@@ -63,51 +61,60 @@ export default function ScorersPanel() {
             inputMode="numeric"
             value={goals}
             onChange={(e) => setGoals(e.target.value)}
-            className="w-full rounded-xl border border-white/12 bg-night-900/80 px-3 py-2.5 text-center font-semibold text-white num focus:border-neon-cyan/60 focus:outline-none"
+            className="w-full rounded-lg bg-navy-950 px-3 py-2.5 text-center font-display text-lg text-white num focus:ring-2 focus:ring-cyan focus:outline-none"
           />
         </div>
-        {error && <p className="text-xs text-neon-magenta">{error}</p>}
+        {error && <p className="text-xs text-pink-soft">{error}</p>}
         <button
           type="submit"
-          className="w-full rounded-xl bg-neon-cyan px-4 py-3 font-display font-bold tracking-wide text-night-950 uppercase active:scale-[0.98] glow-cyan"
+          className="w-full rounded-lg bg-pink py-3 font-display text-[17px] tracking-wide text-white uppercase active:bg-pink-soft"
         >
           Sumar
         </button>
       </form>
 
-      <div className="overflow-hidden rounded-2xl glass">
-        <h2 className="px-4 py-3 font-display text-lg font-bold">Tabla de goleadores</h2>
-        {ranked.length === 0 && (
-          <p className="px-4 pb-8 text-center text-sm text-white/40">
+      <div>
+        <h2 className="headline text-[28px]">Goleadores</h2>
+        {ranked.length === 0 ? (
+          <p className="mt-3 card px-4 py-8 text-center text-sm text-white/45">
             Todavía no cargaste goleadores.
           </p>
-        )}
-        {ranked.map((s, i) => (
-          <div
-            key={s.id}
-            className="flex items-center gap-3 border-t border-white/[0.06] px-3 py-2.5"
-          >
-            <span
-              className={`w-6 text-right text-sm num ${
-                i === 0 ? "font-bold text-neon-cyan" : "text-white/45"
-              }`}
-            >
-              {i + 1}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-white/90">{s.name}</p>
-              <p className="truncate text-[11px] text-white/40">{teamName(s.teamId)}</p>
-            </div>
-            <span className="text-lg font-bold num">{s.goals}</span>
-            <button
-              onClick={() => dispatch({ type: "removeScorer", id: s.id })}
-              aria-label={`Borrar a ${s.name}`}
-              className="px-1 text-white/25 active:text-neon-magenta"
-            >
-              ×
-            </button>
+        ) : (
+          <div className="mt-3 space-y-3.5">
+            {ranked.map((s, i) => (
+              <div key={s.id} className={i > 0 ? "rule pt-3.5" : ""}>
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className={`w-11 shrink-0 font-display text-[34px] leading-none num ${
+                      i === 0 ? "text-pink" : "text-pink/75"
+                    }`}
+                  >
+                    {s.goals}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-bold tracking-[0.06em] uppercase">
+                      {s.name}
+                    </p>
+                    <p className="truncate text-[12px] text-white/55">{teamName(s.teamId)}</p>
+                  </div>
+                  <button
+                    onClick={() => dispatch({ type: "removeScorer", id: s.id })}
+                    aria-label={`Borrar a ${s.name}`}
+                    className="shrink-0 self-start px-1 text-lg leading-none text-white/25 active:text-pink"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div className="mt-2 h-[7px] overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-pink"
+                    style={{ width: `${Math.max(6, (s.goals / max) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </section>
   );

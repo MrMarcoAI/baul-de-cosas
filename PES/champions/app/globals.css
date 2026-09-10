@@ -1,23 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fondos */
-  --color-night-950: #03041a;
-  --color-night-900: #070a2b;
-  --color-night-800: #0e1244;
-  --color-night-700: #171a5c;
-  --color-uefa: #0d2050;
-  --color-plum-900: #1a0a3f;
-  --color-plum-800: #2a1060;
+  /* Azules UEFA */
+  --color-navy-950: #081638;
+  --color-navy-900: #0d2050;
+  --color-navy-800: #142a63;
+  --color-navy-700: #1d3878;
+  --color-navy-600: #2a4a94;
 
-  /* Acentos neón */
-  --color-neon-cyan: #00e5ff;
-  --color-neon-magenta: #ff2d95;
-  --color-neon-lime: #6ef7a5;
-  --color-neon-amber: #ffb340;
+  /* Acentos */
+  --color-pink: #e0479b;
+  --color-pink-soft: #f07ab8;
+  --color-cyan: #4de8ff;
 
   /* Tipografías */
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), "Arial Narrow", ui-sans-serif, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -27,16 +24,12 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  background-color: var(--color-navy-900);
 }
 
 body {
-  background-color: var(--color-night-950);
-  background-image:
-    radial-gradient(120% 70% at 50% -10%, #2a1060 0%, transparent 60%),
-    radial-gradient(80% 50% at 100% 0%, rgba(0, 229, 255, 0.14) 0%, transparent 55%),
-    radial-gradient(70% 45% at 0% 10%, rgba(255, 45, 149, 0.12) 0%, transparent 55%);
-  background-attachment: fixed;
-  color: #e8ecff;
+  background-color: var(--color-navy-900);
+  color: #ffffff;
   font-family: var(--font-sans);
   overscroll-behavior-y: none;
 }
@@ -49,25 +42,29 @@ button {
 }
 
 @utility safe-bottom {
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--tw-safe-extra, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@utility glass {
-  background: linear-gradient(180deg, rgba(23, 26, 92, 0.55) 0%, rgba(7, 10, 43, 0.75) 100%);
-  border: 1px solid rgba(120, 140, 255, 0.16);
-  backdrop-filter: blur(12px);
+/* Tarjeta base: azul un paso mas claro que el fondo, sin bordes duros */
+@utility card {
+  background-color: var(--color-navy-800);
+  border-radius: 0.875rem;
 }
 
-@utility glow-cyan {
-  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.35), 0 0 24px -6px rgba(0, 229, 255, 0.55);
-}
-
-@utility glow-magenta {
-  box-shadow: 0 0 0 1px rgba(255, 45, 149, 0.35), 0 0 24px -6px rgba(255, 45, 149, 0.55);
+@utility rule {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 @utility num {
   font-variant-numeric: tabular-nums;
+}
+
+/* Titular condensado en mayusculas, como los de la revista UEFA */
+@utility headline {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
 }
 
 ::-webkit-scrollbar {
@@ -75,6 +72,6 @@ button {
   height: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 229, 255, 0.3);
+  background: rgba(224, 71, 155, 0.4);
   border-radius: 999px;
 }

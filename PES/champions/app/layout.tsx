@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, Inter } from "next/font/google";
+import { Anton, Inter } from "next/font/google";
 import { StoreProvider } from "@/lib/store";
 import AppShell from "@/components/AppShell";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
+const anton = Anton({
+  variable: "--font-anton",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: "400",
 });
 
 const inter = Inter({
@@ -31,7 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${syne.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="es" className={`${anton.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full">
         <StoreProvider>
           <AppShell>{children}</AppShell>
