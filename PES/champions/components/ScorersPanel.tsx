@@ -15,7 +15,6 @@ export default function ScorersPanel() {
     () => [...state.scorers].sort((a, b) => b.goals - a.goals || a.name.localeCompare(b.name)),
     [state.scorers]
   );
-  const max = ranked[0]?.goals ?? 1;
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,35 +81,30 @@ export default function ScorersPanel() {
         ) : (
           <div className="mt-3 space-y-3.5">
             {ranked.map((s, i) => (
-              <div key={s.id} className={i > 0 ? "rule pt-3.5" : ""}>
-                <div className="flex items-baseline gap-3">
-                  <span
-                    className={`w-11 shrink-0 font-display text-[34px] leading-none num ${
-                      i === 0 ? "text-pink" : "text-pink/75"
-                    }`}
-                  >
-                    {s.goals}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-[13px] font-bold tracking-[0.06em] uppercase">
-                      {s.name}
-                    </p>
-                    <p className="truncate text-[12px] text-white/55">{teamName(s.teamId)}</p>
-                  </div>
-                  <button
-                    onClick={() => dispatch({ type: "removeScorer", id: s.id })}
-                    aria-label={`Borrar a ${s.name}`}
-                    className="shrink-0 self-start px-1 text-lg leading-none text-white/25 active:text-pink"
-                  >
-                    ×
-                  </button>
+              <div
+                key={s.id}
+                className={`flex items-center gap-3 ${i > 0 ? "rule pt-3.5" : ""}`}
+              >
+                <span
+                  className={`w-11 shrink-0 font-display text-[34px] leading-none num ${
+                    i === 0 ? "text-pink" : "text-pink/75"
+                  }`}
+                >
+                  {s.goals}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[13px] font-bold tracking-[0.06em] uppercase">
+                    {s.name}
+                  </p>
+                  <p className="truncate text-[12px] text-white/55">{teamName(s.teamId)}</p>
                 </div>
-                <div className="mt-2 h-[7px] overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-pink"
-                    style={{ width: `${Math.max(6, (s.goals / max) * 100)}%` }}
-                  />
-                </div>
+                <button
+                  onClick={() => dispatch({ type: "removeScorer", id: s.id })}
+                  aria-label={`Borrar a ${s.name}`}
+                  className="shrink-0 px-1 text-lg leading-none text-white/25 active:text-pink"
+                >
+                  ×
+                </button>
               </div>
             ))}
           </div>
