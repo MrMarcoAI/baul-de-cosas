@@ -1,0 +1,25 @@
+name: Generar puzzles del mes
+
+on:
+  schedule:
+    # día 25 de cada mes, 08:00 UTC — genera los ~40 días siguientes
+    - cron: "0 8 25 * *"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generar próximos 40 días
+        run: python3 puzzle/tools/generate.py "$(date -u +%F)" 40
+      - name: Commit y push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add puzzle/puzzles.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Puzzles del próximo mes"
+          git push
