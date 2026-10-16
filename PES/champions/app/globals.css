@@ -29,6 +29,7 @@ html {
 
 body {
   background-color: var(--color-navy-900);
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   font-family: var(--font-sans);
   overscroll-behavior-y: none;
@@ -45,10 +46,34 @@ button {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Tarjeta base: azul un paso mas claro que el fondo, sin bordes duros */
+/* Liquid glass: vidrio translucido con desenfoque y brillo en el borde */
+@utility glass {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035));
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 30px rgba(3, 10, 35, 0.35);
+}
+
+/* Tarjeta base: vidrio con esquinas suaves */
 @utility card {
-  background-color: var(--color-navy-800);
-  border-radius: 0.875rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 10px 30px rgba(3, 10, 35, 0.3);
+}
+
+/* Campo sobre vidrio: hundido y oscuro */
+@utility well {
+  background-color: rgba(4, 12, 40, 0.55);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 @utility rule {
@@ -62,9 +87,40 @@ button {
 /* Titular condensado en mayusculas, como los de la revista UEFA */
 @utility headline {
   font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
   text-transform: uppercase;
   letter-spacing: 0.01em;
   line-height: 0.92;
+}
+
+/* Jerarquia unica: h1 marca, h2 seccion, h3 subseccion */
+@utility t-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  font-size: 24px;
+}
+@utility t-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: 30px;
+}
+@utility t-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  font-size: 17px;
 }
 
 ::-webkit-scrollbar {

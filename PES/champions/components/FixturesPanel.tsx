@@ -31,7 +31,7 @@ function GoalInput({
         const n = Math.max(0, Math.min(99, Math.floor(Number(raw))));
         onChange(Number.isNaN(n) ? null : n);
       }}
-      className="h-8 w-8 rounded-md bg-navy-950 text-center font-display text-[15px] text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
+      className="h-8 w-8 rounded-lg well text-center font-display text-[15px] text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
     />
   );
 }
@@ -79,7 +79,15 @@ function MatchRow({ f, showMatchday }: { f: Fixture; showMatchday?: boolean }) {
 
 export default function FixturesPanel() {
   const { state, dispatch } = useStore();
-  const [matchday, setMatchday] = useState(1);
+  // Al entrar, abre la primera jornada con partidos sin resultado.
+  const [matchday, setMatchday] = useState(() => {
+    const current = MATCHDAYS.find((md) =>
+      state.fixtures.some(
+        (f) => f.matchday === md && (f.homeGoals === null || f.awayGoals === null)
+      )
+    );
+    return current ?? MATCHDAYS[MATCHDAYS.length - 1];
+  });
   const [teamId, setTeamId] = useState("");
 
   const shown = useMemo(() => {
@@ -105,6 +113,7 @@ export default function FixturesPanel() {
           const done = state.fixtures.filter(
             (f) => f.matchday === md && f.homeGoals !== null && f.awayGoals !== null
           ).length;
+          const complete = done === 24;
           return (
             <button
               key={md}
@@ -113,13 +122,17 @@ export default function FixturesPanel() {
                 setMatchday(md);
               }}
               className={`rounded-full py-1.5 text-center transition-colors ${
-                active ? "bg-cyan text-navy-900" : "bg-navy-800 text-white/70"
+                active
+                  ? "bg-cyan text-navy-900 shadow-[0_0_14px_rgba(77,232,255,0.45)]"
+                  : complete
+                    ? "border border-cyan/50 bg-cyan/15 text-cyan"
+                    : "glass text-white/75"
               }`}
             >
               <span className="block font-display text-[13px] leading-tight">J{md}</span>
               <span
                 className={`block text-[8px] leading-tight num ${
-                  active ? "text-navy-900/70" : "text-white/45"
+                  active ? "text-navy-900/70" : complete ? "text-cyan/80" : "text-white/45"
                 }`}
               >
                 {done}/24
@@ -132,7 +145,7 @@ export default function FixturesPanel() {
       <select
         value={teamId}
         onChange={(e) => setTeamId(e.target.value)}
-        className="w-full appearance-none rounded-lg bg-navy-800 px-3 py-2.5 text-[13px] font-medium text-white focus:ring-2 focus:ring-cyan focus:outline-none"
+        className="w-full appearance-none rounded-2xl glass px-4 py-2.5 text-[13px] font-medium text-white focus:ring-2 focus:ring-cyan focus:outline-none"
       >
         <option value="">Ver por jornada · todos los equipos</option>
         {[1, 2, 3, 4].map((p) => (
@@ -148,7 +161,7 @@ export default function FixturesPanel() {
 
       <div>
         <div className="flex items-end justify-between">
-          <h2 className="headline text-[26px]">
+          <h2 className="t-h2">
             {teamId ? TEAMS_BY_ID[teamId].name : `Jornada ${matchday}`}
           </h2>
           <span className="pb-1 text-[11px] font-semibold text-pink num">

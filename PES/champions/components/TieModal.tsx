@@ -28,7 +28,7 @@ function Score({
         const n = Math.max(0, Math.min(99, Math.floor(Number(raw))));
         onChange(Number.isNaN(n) ? null : n);
       }}
-      className="h-11 w-11 shrink-0 rounded-lg bg-navy-950 text-center font-display text-lg text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
+      className="h-11 w-11 shrink-0 rounded-xl well text-center font-display text-lg text-white num [appearance:textfield] placeholder:text-white/25 focus:ring-2 focus:ring-cyan focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
     />
   );
 }
@@ -67,13 +67,13 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
         onClick={onClose}
         className="absolute inset-0 bg-navy-950/85 backdrop-blur-sm"
       />
-      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-2xl bg-navy-900 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
+      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-[1.75rem] glass bg-navy-900/70 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/25" />
 
         <p className="text-[10px] font-semibold tracking-[0.16em] text-white/45 uppercase">
           {tie.def.label} · {twoLegs ? "Ida y vuelta" : "Partido único"}
         </p>
-        <h2 className="mt-1 headline text-[26px]">
+        <h2 className="mt-1 t-h2">
           {teamName(aId)} <span className="text-white/35">vs</span> {teamName(bId)}
         </h2>
 
@@ -169,7 +169,7 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
                     className={`truncate rounded-lg px-3 py-2.5 text-sm transition-colors ${
                       on
                         ? "bg-cyan text-navy-900 font-bold"
-                        : "bg-navy-800 text-white/75"
+                        : "glass text-white/80"
                     }`}
                   >
                     {teamName(id)}
@@ -183,7 +183,7 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
         <div className="mt-4 grid grid-cols-[auto_1fr] gap-2">
           <button
             onClick={() => dispatch({ type: "clearKo", id: tie.def.id })}
-            className="rounded-lg bg-navy-800 px-4 py-3 text-xs font-semibold text-white/60"
+            className="rounded-xl glass px-4 py-3 text-xs font-semibold text-white/60"
           >
             Limpiar
           </button>

@@ -18,7 +18,7 @@ export default function StandingsTable() {
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="headline text-[28px]">Tabla general</h2>
+        <h2 className="t-h2">Tabla general</h2>
         <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
           {(["r16", "playoff", "out"] as Qualification[]).map((q) => (
             <span key={q} className="flex items-center gap-1.5 text-[11px] text-white/60">
@@ -33,7 +33,7 @@ export default function StandingsTable() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="text-[10px] font-semibold tracking-[0.1em] text-white/45 uppercase">
-              <th className="w-8 py-3 pl-3 text-left">#</th>
+              <th className="w-8 pt-3.5 pb-2 pl-3 text-left">#</th>
               <th className="py-3 pl-1 text-left">Equipo</th>
               <th className="w-7 py-3 text-center">PJ</th>
               <th className="w-7 py-3 text-center">PG</th>
@@ -49,12 +49,8 @@ export default function StandingsTable() {
             {rows.map((r, i) => {
               const rank = i + 1;
               const t = TONE[qualification(rank)];
-              const cut = rank === 8 || rank === 24;
               return (
-                <tr
-                  key={r.team.id}
-                  className={`rule ${cut ? "border-b-2 border-b-white/35" : ""}`}
-                >
+                <tr key={r.team.id}>
                   <td className="py-2.5 pl-3">
                     <div className="flex items-center gap-1.5">
                       <span className={`h-5 w-[3px] rounded-full ${t.bar}`} />

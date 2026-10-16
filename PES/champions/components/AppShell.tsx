@@ -4,9 +4,9 @@ import Image from "next/image";
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 export const TABS = [
-  { id: "tabla", label: "Tabla" },
   { id: "partidos", label: "Partidos" },
-  { id: "llave", label: "Llave" },
+  { id: "tabla", label: "Tabla" },
+  { id: "llave", label: "Playoffs" },
   { id: "goleadores", label: "Goles" },
 ] as const;
 
@@ -72,8 +72,15 @@ export default function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <TabContext.Provider value={{ tab, setTab }}>
+      {/* Luces de fondo: le dan algo que refractar al vidrio */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-navy-900">
+        <div className="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-pink/25 blur-3xl" />
+        <div className="absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-cyan/15 blur-3xl" />
+        <div className="absolute -bottom-24 left-1/4 h-80 w-80 rounded-full bg-navy-600/60 blur-3xl" />
+      </div>
+
       <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col">
-        <header className="sticky top-0 z-30 bg-navy-900 px-4 pt-[calc(env(safe-area-inset-top,0px)+0.75rem)] pb-3">
+        <header className="px-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] pb-1">
           <div className="flex items-center gap-2.5">
             <Image
               src="/ucl-ball.png"
@@ -81,35 +88,29 @@ export default function AppShell({ children }: { children: ReactNode }) {
               width={108}
               height={98}
               priority
+              unoptimized
               className="h-8 w-auto"
             />
-            <h1 className="headline text-[26px]">Champions League</h1>
+            <h1 className="t-h1">Champions League</h1>
           </div>
         </header>
 
-        <main className="flex-1 px-4 pt-5 pb-28">{children}</main>
+        <main className="flex-1 px-4 pt-5 pb-32">{children}</main>
 
-        <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-white/12 bg-navy-950/95 backdrop-blur-xl safe-bottom">
-          <div className="mx-auto grid max-w-3xl grid-cols-4">
+        <nav className="fixed inset-x-0 bottom-0 z-30 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+0.5rem)]">
+          <div className="mx-auto grid max-w-md grid-cols-4 gap-1 rounded-full glass p-1.5">
             {TABS.map((t) => {
               const active = t.id === tab;
               return (
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
-                  className={`flex select-none flex-col items-center gap-1 py-2.5 transition-colors ${
-                    active ? "text-cyan" : "text-white/50"
+                  className={`flex select-none flex-col items-center gap-0.5 rounded-full py-2 transition-colors ${
+                    active ? "bg-navy-950/60 text-cyan" : "text-white/75"
                   }`}
                 >
                   <TabIcon id={t.id} />
-                  <span className="text-[10px] font-semibold tracking-[0.06em] uppercase">
-                    {t.label}
-                  </span>
-                  <span
-                    className={`h-[3px] w-7 rounded-full transition-all ${
-                      active ? "bg-cyan" : "bg-transparent"
-                    }`}
-                  />
+                  <span className="text-[11px] font-semibold">{t.label}</span>
                 </button>
               );
             })}

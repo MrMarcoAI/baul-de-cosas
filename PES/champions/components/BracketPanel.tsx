@@ -136,7 +136,7 @@ export default function BracketPanel() {
   return (
     <section className="space-y-3">
       <div>
-        <h2 className="headline text-[28px]">Camino a la final</h2>
+        <h2 className="t-h2">Camino a la final</h2>
         <p className="mt-1 text-[11px] font-semibold tracking-[0.08em] text-white/45 uppercase">
           {played === state.fixtures.length
             ? "Fase de liga cerrada"
@@ -154,7 +154,7 @@ export default function BracketPanel() {
       {rounds.map((round, i) => (
         <div key={round}>
           {i > 0 && <Connector />}
-          <h3 className="mb-2 headline text-[15px] text-pink">{ROUND_NAMES[round]}</h3>
+          <h3 className="mb-2 t-h3 text-pink">{ROUND_NAMES[round]}</h3>
           <div className={`mx-auto space-y-2 ${ROUND_WIDTH[round]}`}>
             {TIES.filter((d) => d.round === round).map((d) => (
               <Tie key={d.id} tie={ties.get(d.id)!} onOpen={() => setOpenId(d.id)} />
@@ -165,7 +165,7 @@ export default function BracketPanel() {
 
       <Connector />
 
-      <div className="overflow-hidden rounded-xl bg-navy-800 px-5 py-7 text-center">
+      <div className="overflow-hidden card px-5 py-7 text-center">
         <Image
           src="/ucl-ball.png"
           alt=""

@@ -14,7 +14,7 @@ export default function Home() {
   if (!hydrated)
     return (
       <div className="card px-6 py-16 text-center">
-        <p className="headline text-[26px] text-pink">Sorteando</p>
+        <h2 className="t-h2 text-pink">Sorteando</h2>
         <p className="mt-2 text-sm text-white/50">Armando las 8 jornadas.</p>
       </div>
     );
