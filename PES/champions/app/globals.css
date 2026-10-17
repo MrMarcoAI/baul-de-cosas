@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  /* Azules UEFA */
+  /* Indigos de la app UEFA */
+  --color-ink-950: #05053a;
+  --color-ink-900: #08084d;
+  --color-surface: #10126b;
+  --color-surface-2: #1b1e7c;
+
+  /* Azules heredados */
   --color-navy-950: #081638;
   --color-navy-900: #0d2050;
   --color-navy-800: #142a63;
@@ -11,7 +17,7 @@
   /* Acentos */
   --color-pink: #e0479b;
   --color-pink-soft: #f07ab8;
-  --color-cyan: #4de8ff;
+  --color-cyan: #14e1f5;
 
   /* Tipografías */
   --font-display: var(--font-anton), "Arial Narrow", ui-sans-serif, sans-serif;
@@ -24,11 +30,12 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  background-color: #060a5c;
+  background-color: #05053a;
 }
 
 body {
-  background-color: #060a5c;
+  /* Transparente: el fondo con degradado vive en una capa fija detras */
+  background-color: transparent;
   -webkit-font-smoothing: antialiased;
   color: #ffffff;
   font-family: var(--font-sans);
@@ -46,35 +53,33 @@ button {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Liquid glass: vidrio translucido con desenfoque y brillo en el borde */
+/* Liquid glass: SOLO capa de navegacion (menu, controles, hojas). Nunca contenido. */
 @utility glass {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015));
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-  backdrop-filter: blur(14px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(160deg, rgba(60, 66, 190, 0.42), rgba(18, 20, 100, 0.38));
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
-    0 12px 32px rgba(2, 4, 40, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 36px rgba(0, 0, 20, 0.5);
 }
 
-/* Tarjeta base: vidrio con esquinas suaves */
+/* Contenido: tarjeta indigo solida, como las de la app UEFA */
 @utility card {
-  border-radius: 1.25rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-  backdrop-filter: blur(14px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 12px 32px rgba(2, 4, 40, 0.3);
+  border-radius: 1.5rem;
+  background-color: var(--color-surface);
 }
 
-/* Campo sobre vidrio: hundido y oscuro */
+/* Pastilla o boton secundario solido */
+@utility chip {
+  background-color: var(--color-surface-2);
+}
+
+/* Campo de texto: hundido, mas oscuro que la tarjeta y con borde */
 @utility well {
-  background-color: rgba(2, 4, 34, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
+  background-color: var(--color-ink-950);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 @utility rule {

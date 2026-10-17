@@ -65,9 +65,9 @@ export default function TieModal({ tie, onClose }: { tie: ResolvedTie; onClose: 
       <button
         aria-label="Cerrar"
         onClick={onClose}
-        className="absolute inset-0 bg-[#030640]/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"
       />
-      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-[1.75rem] glass bg-[#0a1290]/55 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
+      <div className="relative max-h-[88dvh] w-full overflow-y-auto rounded-t-[1.75rem] glass px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)]">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/25" />
 
         <p className="text-[10px] font-semibold tracking-[0.16em] text-white/45 uppercase">

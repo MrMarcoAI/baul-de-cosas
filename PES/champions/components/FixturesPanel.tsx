@@ -126,7 +126,7 @@ export default function FixturesPanel() {
                   ? "bg-cyan text-navy-900 shadow-[0_0_14px_rgba(77,232,255,0.45)]"
                   : complete
                     ? "border border-cyan/50 bg-cyan/15 text-cyan"
-                    : "glass text-white/75"
+                    : "chip text-white/80"
               }`}
             >
               <span className="block font-display text-[13px] leading-tight">J{md}</span>

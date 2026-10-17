@@ -73,14 +73,40 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <TabContext.Provider value={{ tab, setTab }}>
       {/* Luces de fondo: le dan algo que refractar al vidrio */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(80% 55% at 105% 60%, rgba(80,120,255,0.6), transparent 70%), linear-gradient(175deg, #04074a 0%, #0912a8 42%, #1736e6 100%)",
-        }}
-      />
+      {/* Fondo: cabecera azul con trazos de luz que se funde en indigo oscuro */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-ink-950">
+        <div
+          className="absolute inset-x-0 top-0 h-[420px]"
+          style={{
+            background:
+              "linear-gradient(180deg, #1c2fd6 0%, #1222b0 30%, #0b0f78 62%, #05053a 100%)",
+          }}
+        />
+        <svg
+          className="absolute inset-x-0 top-0 h-[300px] w-full"
+          viewBox="0 0 400 300"
+          preserveAspectRatio="xMidYMin slice"
+          style={{ maskImage: "linear-gradient(180deg, #000 35%, transparent 100%)", WebkitMaskImage: "linear-gradient(180deg, #000 35%, transparent 100%)" }}
+        >
+          <defs>
+            <linearGradient id="streak" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stopColor="#14e1f5" />
+              <stop offset="0.5" stopColor="#ff4fd8" />
+              <stop offset="1" stopColor="#ffe14d" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#streak)" strokeLinecap="round" opacity="0.7">
+            <path d="M-20 70 C 80 10, 150 120, 240 40 S 380 10, 430 60" strokeWidth="2.2" />
+            <path d="M-30 110 C 60 60, 170 170, 260 90 S 390 70, 440 120" strokeWidth="1.2" opacity="0.6" />
+            <path d="M200 -10 C 230 60, 300 80, 420 30" strokeWidth="1.6" opacity="0.8" />
+          </g>
+          <g fill="none" stroke="#7ea0ff" strokeWidth="0.6" opacity="0.35">
+            {Array.from({ length: 9 }, (_, i) => (
+              <path key={i} d={`M${250 + i * 9} -10 C ${270 + i * 9} 60, ${330 + i * 8} 110, ${420} ${70 + i * 9}`} />
+            ))}
+          </g>
+        </svg>
+      </div>
 
       <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col">
         <header className="px-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] pb-1">
@@ -109,7 +135,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
                   key={t.id}
                   onClick={() => setTab(t.id)}
                   className={`flex select-none flex-col items-center gap-0.5 rounded-full py-2 transition-colors ${
-                    active ? "bg-white/15 text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]" : "text-white/80"
+                    active ? "bg-white/12 text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]" : "text-white/85"
                   }`}
                 >
                   <TabIcon id={t.id} />
