@@ -24,11 +24,11 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  background-color: var(--color-navy-900);
+  background-color: #060a5c;
 }
 
 body {
-  background-color: var(--color-navy-900);
+  background-color: #060a5c;
   -webkit-font-smoothing: antialiased;
   color: #ffffff;
   font-family: var(--font-sans);
@@ -48,32 +48,33 @@ button {
 
 /* Liquid glass: vidrio translucido con desenfoque y brillo en el borde */
 @utility glass {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035));
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
-  backdrop-filter: blur(22px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015));
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-    0 10px 30px rgba(3, 10, 35, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 32px rgba(2, 4, 40, 0.35);
 }
 
 /* Tarjeta base: vidrio con esquinas suaves */
 @utility card {
   border-radius: 1.25rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
-  backdrop-filter: blur(22px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 10px 30px rgba(3, 10, 35, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 12px 32px rgba(2, 4, 40, 0.3);
 }
 
 /* Campo sobre vidrio: hundido y oscuro */
 @utility well {
-  background-color: rgba(4, 12, 40, 0.55);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  background-color: rgba(2, 4, 34, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 @utility rule {

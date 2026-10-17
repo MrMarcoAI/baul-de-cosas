@@ -167,11 +167,12 @@ export default function BracketPanel() {
 
       <div className="overflow-hidden card px-5 py-7 text-center">
         <Image
-          src="/ucl-ball.png"
+          src="/ucl-ball-white.png"
           alt=""
           width={108}
           height={98}
-          className="mx-auto h-14 w-auto rounded-xl"
+          unoptimized
+          className="mx-auto h-14 w-auto"
         />
         <p className="mt-4 headline text-[30px] text-white">Campeón</p>
         <p

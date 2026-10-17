@@ -73,17 +73,20 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <TabContext.Provider value={{ tab, setTab }}>
       {/* Luces de fondo: le dan algo que refractar al vidrio */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-navy-900">
-        <div className="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-pink/25 blur-3xl" />
-        <div className="absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-cyan/15 blur-3xl" />
-        <div className="absolute -bottom-24 left-1/4 h-80 w-80 rounded-full bg-navy-600/60 blur-3xl" />
-      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(80% 55% at 105% 60%, rgba(80,120,255,0.6), transparent 70%), linear-gradient(175deg, #04074a 0%, #0912a8 42%, #1736e6 100%)",
+        }}
+      />
 
       <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col">
         <header className="px-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] pb-1">
           <div className="flex items-center gap-2.5">
             <Image
-              src="/ucl-ball.png"
+              src="/ucl-ball-white.png"
               alt=""
               width={108}
               height={98}
@@ -106,7 +109,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
                   key={t.id}
                   onClick={() => setTab(t.id)}
                   className={`flex select-none flex-col items-center gap-0.5 rounded-full py-2 transition-colors ${
-                    active ? "bg-navy-950/60 text-cyan" : "text-white/75"
+                    active ? "bg-white/15 text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]" : "text-white/80"
                   }`}
                 >
                   <TabIcon id={t.id} />

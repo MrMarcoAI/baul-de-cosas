@@ -145,7 +145,7 @@ export default function FixturesPanel() {
       <select
         value={teamId}
         onChange={(e) => setTeamId(e.target.value)}
-        className="w-full appearance-none rounded-2xl glass px-4 py-2.5 text-[13px] font-medium text-white focus:ring-2 focus:ring-cyan focus:outline-none"
+        className="w-full appearance-none rounded-2xl well px-4 py-2.5 text-[13px] font-medium text-white focus:ring-2 focus:ring-cyan focus:outline-none"
       >
         <option value="">Ver por jornada · todos los equipos</option>
         {[1, 2, 3, 4].map((p) => (
