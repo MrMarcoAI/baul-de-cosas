@@ -127,7 +127,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <main className="flex-1 px-4 pt-5 pb-32">{children}</main>
 
         <nav className="fixed inset-x-0 bottom-0 z-30 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+0.5rem)]">
-          <div className="mx-auto grid max-w-md grid-cols-4 gap-1 rounded-full glass p-1.5">
+          <div className="mx-auto grid max-w-md grid-cols-4 gap-1 rounded-full glass-clear p-1.5">
             {TABS.map((t) => {
               const active = t.id === tab;
               return (
@@ -135,7 +135,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
                   key={t.id}
                   onClick={() => setTab(t.id)}
                   className={`flex select-none flex-col items-center gap-0.5 rounded-full py-2 transition-colors ${
-                    active ? "bg-white/12 text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]" : "text-white/85"
+                    active ? "bg-white/15 text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]" : "text-white/85"
                   }`}
                 >
                   <TabIcon id={t.id} />
