@@ -2,8 +2,10 @@ name: CIRCO FEED diario
 
 on:
   schedule:
-    # todos los días 10:00 UTC (07:00 en Santiago con horario de verano)
+    # 10:00 UTC = 07:00 en Santiago (horario de verano): lectura de la mañana + mail
     - cron: "0 10 * * *"
+    # cada 3 horas durante el día, para que "Hoy" se mantenga al día (sin mail)
+    - cron: "0 13,16,19,22,1 * * *"
   workflow_dispatch:
 
 jobs:
@@ -27,6 +29,7 @@ jobs:
           git commit -m "CIRCO FEED: artículos del día"
           git push
       - name: Mandar resumen por mail
+        if: github.event.schedule == '0 10 * * *' || github.event_name == 'workflow_dispatch'
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
