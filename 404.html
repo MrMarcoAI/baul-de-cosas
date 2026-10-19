@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Se mudó</title>
+<script>
+  // Los proyectos del baúl ahora tienen repo propio: redirige a la URL nueva.
+  var m = location.pathname.match(/^\/baul-de-cosas\/(circo-feed|puzzle)(\/.*)?$/);
+  if (m) location.replace('/' + m[1] + (m[2] || '/') + location.search + location.hash);
+</script>
+</head>
+<body style="font-family:Inter,Helvetica,Arial,sans-serif;padding:24px">
+<p>Esta página se mudó:</p>
+<ul>
+  <li><a href="/circo-feed/">CIRCO FEED</a></li>
+  <li><a href="/puzzle/">Pupi's Cruci</a></li>
+</ul>
+</body>
+</html>
